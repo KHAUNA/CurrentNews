@@ -17,13 +17,19 @@ $(document).on("click", "button", function() {
   console.log(clickedButton)
   $.ajax({
     method: "GET",
-    url: "/favorited/" + clickedButton
+    url: "/markfavorited/" + clickedButton
   }).then(function(){
-    
   });
 });
 
 function addFavorite() {
   $("#table-body").empty();
-
-}
+  $.ajax({
+    method: "GET",
+    url: "/favorited"
+  }).then(function(data){
+    for (let i in data){
+      
+    }
+  })
+} 

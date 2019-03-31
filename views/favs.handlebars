@@ -1,25 +1,9 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">The Onion Web Scraper!</h1>
-            <p class="lead">This application scrapes top news articles from the political pages of The Online and allow you to add comments and save favorites</p>
+            <h3 class="display-4">Saved Articles</h3>
         </div>
     </div>
 
-    {{!-- <table class="table bg-secondary text-white">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Favorite Articles</th>
-                <th scope="col">Remove from Favorites</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table> --}}
-
-          <button class="btn btn-dark ml-5">
-            Go to Saved Favorite Articles
-          </button>
   <br><br>
 
     <table class="table bg-secondary text-white">
@@ -27,7 +11,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Article Title</th>
-                <th scope="col">Add/Remove to Favorites</th>
+                <th scope="col">Remove From Favorites</th>
               </tr>
             </thead>
             <tbody>
@@ -35,7 +19,7 @@
               <tr>
                 <th scope="row">1</th>
                 <td>{{title}}</td>
-                <td><button id={{id}} class="fav-button">Add To Favorites</button></td>
+                <td><button id={{id}} class="unfav-button">Remove from Favorites</button></td>
               </tr>
               {{/each}}
                

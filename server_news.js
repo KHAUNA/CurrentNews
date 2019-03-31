@@ -61,7 +61,7 @@ axios.get("https://slickdeals.net").then(function(response) {
           // console.log(err.message)
       });
   });
-});
+}); 
 
 app.get("/", function(req, res){
   db.Article.find({}).then(function(dbData){
@@ -69,7 +69,8 @@ app.get("/", function(req, res){
     var hdbsObj = {
       data: dbData
     }
-    res.render("index", hdbsObj)
+    // res.sendFile(path.join(__dirname, "../public/survey.html"));
+    res.render(path.join(__dirname, "index", hdbsObj));
     // res.json({data: dbData})
   }).catch(function(err){
     res.json(err) 
