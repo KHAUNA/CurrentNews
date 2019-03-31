@@ -31,12 +31,12 @@ app.set("view engine", "handlebars");
 
 
 //connect to mongodb
-// mongoose.connect("mongodb://localhost/articlesdb", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/articlesdb", { useNewUrlParser: true });
 
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
 
-mongoose.connect(MONGODB_URI);
+// mongoose.connect(MONGODB_URI);
 
 
 
@@ -69,9 +69,8 @@ app.get("/", function(req, res){
     var hdbsObj = {
       data: dbData
     }
-    // res.sendFile(path.join(__dirname, "../public/survey.html"));
-    res.render(path.join(__dirname, "index", hdbsObj));
-    // res.json({data: dbData})
+    res.render("index", hdbsObj)
+
   }).catch(function(err){
     res.json(err) 
   });
