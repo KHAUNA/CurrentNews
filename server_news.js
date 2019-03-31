@@ -31,10 +31,12 @@ app.set("view engine", "handlebars");
 
 
 //connect to mongodb
-mongoose.connect("mongodb://localhost/articlesdb", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/articlesdb", { useNewUrlParser: true });
 
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
 
+mongoose.connect(MONGODB_URI);
 
 
 
@@ -81,8 +83,7 @@ app.get("/markfavorited/:id", function(req, res){
 });
 
 app.get("/favorited", function(req, res){
-  console.log(`req.params ${req.params.id}`)
-  res.json(req.params.id);
+
   return db.Article.find({ favorited: true});
 });
 
