@@ -1,0 +1,13 @@
+body {
+    background-image: url("https://imgur.com/DuIb3my.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.jumbotron {
+    opacity: 0.6;
+}
+
+.table {
+    opacity: 0.8;
+}
