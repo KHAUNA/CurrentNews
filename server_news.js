@@ -31,12 +31,12 @@ app.set("view engine", "handlebars");
 
 
 //connect to mongodb
-mongoose.connect("mongodb://localhost/articlesdb", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/articlesdb", { useNewUrlParser: true });
 
 
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlesdb";
 
-// mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 
 
@@ -50,43 +50,58 @@ mongoose.connect("mongodb://localhost/articlesdb", { useNewUrlParser: true });
 //     });
 // });
 
-axios.get("https://slickdeals.net").then(function(response) {
+axios.get("https://slickdeals.net").then(function (response) {
+  db.Article.deleteMany();
   var $ = cheerio.load(response.data);
-  $("a.itemTitle").each(function(i, element) {
+  $("a.itemTitle").each(function (i, element) {
     var entry = {}
     entry.title = $(element).attr("title");
-
-      db.Article.create(entry).then(function(data){
-      }).catch(function(err){
-          // console.log(err.message)
-      });
+    db.Article.create(entry).then(function (data) {
+    }).catch(function (err) {
+      // console.log(err.message)
+    });
   });
-}); 
+});
 
-app.get("/", function(req, res){
-  db.Article.find({}).then(function(dbData){
+app.get("/", function (req, res) {
+  db.Article.find({}).then(function (dbData) {
     // console.log(dbData); 
     var hdbsObj = {
       data: dbData
     }
     res.render("index", hdbsObj)
+  }).catch(function (err) {
+    res.json(err)
+  });
+});
 
+app.get("/markfavorited/:id", function (req, res) {
+  // res.json(req.params.id);
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
   }).catch(function(err){
-    res.json(err) 
+    res.json(err)
+  })
+});
+
+app.get("/favorited", function (req, res) {
+
+  db.Article.find({ favorited: true }).then(function (dbData) {
+    let favObj = {
+      data: dbData
+    }
+    res.render("favs", favObj)
+  }).catch(function(err){
+    res.json(err)
   });
 });
 
-app.get("/markfavorited/:id", function(req, res){
-  console.log(`req.params ${req.params.id}`)
-  res.json(req.params.id);
-  // return db.Article.findOneAndUpdate({_id: req.params.id}, {$set: {favorited: true}});
+app.post("/addnote", function(req, res){
+  let noteEntry = req.body
+  db.Note.create({noteEntry}).then(function(dbData){
+    res.send("saved")
+  })
 });
 
-app.get("/favorited", function(req, res){
-
-  return db.Article.find({ favorited: true});
+app.listen(PORT, function () {
+  console.log("Server listening on: http://localhost:" + PORT);
 });
-
-app.listen(PORT, function() {
-    console.log("Server listening on: http://localhost:" + PORT);
-  });

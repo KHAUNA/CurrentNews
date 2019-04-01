@@ -1,30 +1,41 @@
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h3 class="display-4">Saved Articles</h3>
-        </div>
-    </div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h3 class="display-4">Saved Articles</h3>
+  </div>
+</div>
 
-  <br><br>
+<br><br>
 
-    <table class="table bg-secondary text-white">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Article Title</th>
-                <th scope="col">Remove From Favorites</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each data}}
-              <tr>
-                <th scope="row">1</th>
-                <td>{{title}}</td>
-                <td><button id={{id}} class="unfav-button">Remove from Favorites</button></td>
-              </tr>
-              {{/each}}
-               
-            </tbody>
-          </table>
-    
+<a href="/">
+<button id="return-btn" class="btn btn-dark ml-5">
+    Return to Scraped Articles
+  </button>
+  </a>
 
-    {{!-- <script src="" async defer></script> --}}
+<br><br>
+
+<table class="table bg-secondary text-white">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Article Title</th>
+      <th scope="col">Remove From Favorites</th>
+      <th scope="col">Add Notes</th>
+      <th scope="col">Notes</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each data}}
+    <tr>
+      <td>{{title}}</td>
+      <td><button id={{id}} class="unfav-button">Remove from Favorites</button></td>
+      <td><button id={{id}} class="note-button">Add Notes</button></td>
+      <td id="fav-notes"></td>
+    </tr>
+    {{/each}}
+
+  </tbody>
+</table>
+
+
+{{!-- <script src="" async defer></script> --}}

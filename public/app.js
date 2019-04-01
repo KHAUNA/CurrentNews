@@ -1,35 +1,59 @@
-// $.getJSON("/articles", function(data) {
-//     console.log(data)
-//     for (var i = 0; i < data.length; i++) {
-//       // Display the apropos information on the page
-//       $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-//     }
-//   });
+$(document).ready(function () {
+  // $.getJSON("/articles", function(data) {
+  //     console.log(data)
+  //     for (var i = 0; i < data.length; i++) {
+  //       // Display the apropos information on the page
+  //       $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+  //     }
+  //   });
 
-// $.ajax({
-//     method: get,
-//     url: "/aricles"
-// }).then(function(dbData){
-// })
+  // $.ajax({
+  //     method: get,
+  //     url: "/aricles"
+  // }).then(function(dbData){
+  // })
 
-$(document).on("click", "button", function() {
-  var clickedButton = $(this).attr("id")
-  console.log(clickedButton)
-  $.ajax({
-    method: "GET",
-    url: "/markfavorited/" + clickedButton
-  }).then(function(){
+
+  $(".fav-button").on("click", function () {
+    var clickedButton = $(this).attr("id")
+    $.ajax({
+      method: "GET",
+      url: "/markfavorited/" + clickedButton
+    }).then(function () {
+      alert("added to favorites j")
+    });
   });
-});
 
-function addFavorite() {
-  $("#table-body").empty();
-  $.ajax({
-    method: "GET",
-    url: "/favorited"
-  }).then(function(data){
-    for (let i in data){
-      
-    }
-  })
-} 
+  $("#all-favs").on("click", function () {
+    $.ajax({
+      method: "GET",
+      url: "/favorited"
+    }).then(function () {
+    });
+  });
+
+  // $("#return-btn").on("click", function(){
+  //   $.ajax({
+  //     method: "GET",
+  //     url: "/"
+  //   }).then(function(){
+
+  //   });
+  // });
+
+  $(".note-button").on("click", function () {
+    var articleID = "";
+    let newNote = "";
+    $.ajax({
+      method: "POST",
+      url: "/addnote",
+      data: {
+        articleID: $(this).attr("id"),
+        newNote: prompt("Enter your note for this article")
+      }
+    }).then(function (data) {
+        console.log(`jquery ${data}`)
+    });
+  });
+
+});

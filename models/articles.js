@@ -8,10 +8,6 @@ var articleSchema = new Schema({
         unique: true,
         trim: true
     },
-    notes: {
-        type: String,
-        trim: true
-    },
     favorited: {
         type: Boolean,
         default: false
