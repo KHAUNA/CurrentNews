@@ -97,57 +97,57 @@ app.get("/", function (req, res) {
   })
 });
 
-app.get("/markfavorited/:id", function (req, res) {
-  // res.json(req.params.id);
-  db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
-  }).catch(function(err){
-    res.json(err);
-  })
-});
-
-app.get("/favorited", function (req, res) {
-
-  db.Article.find({ favorited: true }).then(function (dbData) {
-    let favObj = {
-      data: dbData
-    };
-    res.render("favs", favObj)
-  }).catch(function(err){
-    res.json(err);
-  })
-});
-
-app.get("/addnote", function(req, res){
-
-    db.Article.findOneAndUpdate({_id: req.body.articleID}, {$set: {notes: req.body.newNote}}, {new: true}).then(function(dbData){
-    // db.Note.findOneAndUpdate({articleID: req.body.artID}, {$push: {notes: dbArticle._}})
-    res.json(dbData)
-    // db.Article.find({ favorited: true}).then(function(dbData){
-    //   let noteObj = {
-    //     data: dbData
-    //   };
-    //   console.log(noteObj)
-    //   res.render("favs", noteObj)
-    // });
-    }).catch(function(err){
-      res.json(err);
-    });
-  });
-
-  // db.Note.create({noteEntry}).then(function(dbData){
-  //   // db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
-  // db.Articles.find({ favorited: true}).then(function(dbData){
-  //   let noteObj = {
-  //     data: dbData
-  //   }
-  //   res.render("favs",noteObj)
-  // }).catch(function(err){
-  //   res.json(err);
-  // });
-  // }).catch(function(err){
-  //   res.json(err);
-  // });
+// app.get("/markfavorited/:id", function (req, res) {
+//   // res.json(req.params.id);
+//   db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
+//   }).catch(function(err){
+//     res.json(err);
+//   })
 // });
+
+// app.get("/favorited", function (req, res) {
+
+//   db.Article.find({ favorited: true }).then(function (dbData) {
+//     let favObj = {
+//       data: dbData
+//     };
+//     res.render("favs", favObj)
+//   }).catch(function(err){
+//     res.json(err);
+//   })
+// });
+
+// app.get("/addnote", function(req, res){
+
+//     db.Article.findOneAndUpdate({_id: req.body.articleID}, {$set: {notes: req.body.newNote}}, {new: true}).then(function(dbData){
+//     // db.Note.findOneAndUpdate({articleID: req.body.artID}, {$push: {notes: dbArticle._}})
+//     res.json(dbData)
+//     // db.Article.find({ favorited: true}).then(function(dbData){
+//     //   let noteObj = {
+//     //     data: dbData
+//     //   };
+//     //   console.log(noteObj)
+//     //   res.render("favs", noteObj)
+//     // });
+//     }).catch(function(err){
+//       res.json(err);
+//     });
+//   });
+
+//   // db.Note.create({noteEntry}).then(function(dbData){
+//   //   // db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+//   // db.Articles.find({ favorited: true}).then(function(dbData){
+//   //   let noteObj = {
+//   //     data: dbData
+//   //   }
+//   //   res.render("favs",noteObj)
+//   // }).catch(function(err){
+//   //   res.json(err);
+//   // });
+//   // }).catch(function(err){
+//   //   res.json(err);
+//   // });
+// // });
 
 app.listen(PORT, function () {
   console.log("Server listening on: http://localhost:" + PORT);
