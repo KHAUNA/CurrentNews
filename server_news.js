@@ -12,7 +12,7 @@ var db = require("./models")
 
 //start our express app and use
 var app = express();
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -21,6 +21,8 @@ app.use(logger("dev"));
 
 //use routes from routes.js
 var routes = require("./controller/routes.js");
+
+//didnt end up using routes as intended, left code up regardless
 app.use(routes);
 
 //using handlebars
@@ -50,18 +52,36 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 //     });
 // });
 
-axios.get("https://slickdeals.net").then(function (response) {
-  db.Article.deleteMany();
+
+db.Article.deleteMany({ favorited: false})
+// axios.get("https://politics.theonion.com/").then(function (response){
+//   var $ = cheerio.load(response.data);
+//   $("a.js_entry-link").each(function(i, element){
+//     let entry = {};
+//     entry.title = $(element).text();
+//     entry.link = $(element).attr("href");
+//     console.log(entry)
+//     db.Article.create({entry}).then(function(dbData){
+//       console.log("added data to database")
+//     }).catch(function(err){
+//       console.log(err)
+//     })
+//   })
+// })
+
+
+axios.get("https://slickdeals.net/").then(function (response) {
   var $ = cheerio.load(response.data);
   $("a.itemTitle").each(function (i, element) {
     var entry = {}
     entry.title = $(element).attr("title");
+    entry.link = $(element).attr("href");
+    entry.notes = ""
     db.Article.create(entry).then(function (data) {
-    }).catch(function (err) {
-      // console.log(err.message)
     });
   });
 });
+
 
 app.get("/", function (req, res) {
   db.Article.find({}).then(function (dbData) {
@@ -71,7 +91,7 @@ app.get("/", function (req, res) {
     }
     res.render("index", hdbsObj)
   }).catch(function (err) {
-    console.log(err)
+    res.json(err)
   });
 });
 
@@ -79,7 +99,7 @@ app.get("/markfavorited/:id", function (req, res) {
   // res.json(req.params.id);
   db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
   }).catch(function(err){
-    console.log(err)
+    res.json(err)
   })
 });
 
@@ -91,16 +111,39 @@ app.get("/favorited", function (req, res) {
     }
     res.render("favs", favObj)
   }).catch(function(err){
-    console.log(err)
+    res.json(err)
   });
 });
 
-app.post("/addnote", function(req, res){
-  let noteEntry = req.body
-  db.Note.create({noteEntry}).then(function(dbData){
-    res.send("saved")
+app.get("/addnote", function(req, res){
+
+    db.Article.findOneAndUpdate({_id: req.body.articleID}, {$set: {notes: req.body.newNote}}, {new: true}).then(function(dbData){
+    // db.Note.findOneAndUpdate({articleID: req.body.artID}, {$push: {notes: dbArticle._}})
+    res.json(dbData)
+    // db.Article.find({ favorited: true}).then(function(dbData){
+    //   let noteObj = {
+    //     data: dbData
+    //   };
+    //   console.log(noteObj)
+    //   res.render("favs", noteObj)
+    // });
   })
-});
+  })
+
+  // db.Note.create({noteEntry}).then(function(dbData){
+  //   // db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+  // db.Articles.find({ favorited: true}).then(function(dbData){
+  //   let noteObj = {
+  //     data: dbData
+  //   }
+  //   res.render("favs",noteObj)
+  // }).catch(function(err){
+  //   res.json(err);
+  // });
+  // }).catch(function(err){
+  //   res.json(err);
+  // });
+// });
 
 app.listen(PORT, function () {
   console.log("Server listening on: http://localhost:" + PORT);

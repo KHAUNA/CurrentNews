@@ -1,8 +1,8 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">The Onion Web Scraper!</h1>
-    <p class="lead">This application scrapes top news articles from the political pages of The Online and allow you to
-      add comments and save favorites</p>
+    <h1 class="display-4">The SlickDeals Web Scraper!</h1>
+    <p class="lead">This application scrapes deals from slickdeals.net to save you money!  Save your favorite deals
+      add notes about them.</p>
   </div>
 </div>
 
@@ -20,16 +20,16 @@
 
 <a href="/favorited">
   <button id="all-favs" class="btn btn-dark ml-5">
-  Go to Saved Favorite Articles
+  Go to Saved Favorite Deals
 </button>
 </a>
 <br><br>
 
-<table class="table bg-secondary text-white">
-  <thead class="thead-dark">
+<table class="table bg-dark text-white">
+  <thead class="thead-secondary">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Article Title</th>
+      <th scope="col">Deals</th>
       <th scope="col">Add/Remove to Favorites</th>
     </tr>
   </thead>
@@ -37,7 +37,7 @@
     {{#each data}}
     <tr>
       <th scope="row">1</th>
-      <td>{{title}}</td>
+      <td><a href="{{link}}">{{title}}</a></td>
       <td><button id={{id}} class="fav-button">Add To Favorites</button></td>
     </tr>
     {{/each}}

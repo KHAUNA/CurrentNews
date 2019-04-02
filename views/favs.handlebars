@@ -1,6 +1,6 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h3 class="display-4">Saved Articles</h3>
+    <h3 class="display-4">Saved Deals</h3>
   </div>
 </div>
 
@@ -14,10 +14,10 @@
 
 <br><br>
 
-<table class="table bg-secondary text-white">
-  <thead class="thead-dark">
+<table class="table bg-dark text-white">
+  <thead class="thead-secondary">
     <tr>
-      <th scope="col">Article Title</th>
+      <th scope="col">Items</th>
       <th scope="col">Remove From Favorites</th>
       <th scope="col">Add Notes</th>
       <th scope="col">Notes</th>
@@ -27,10 +27,10 @@
   <tbody>
     {{#each data}}
     <tr>
-      <td>{{title}}</td>
+      <td><a href="{{link}}">{{title}}</a></td>
       <td><button id={{id}} class="unfav-button">Remove from Favorites</button></td>
       <td><button id={{id}} class="note-button">Add Notes</button></td>
-      <td id="fav-notes"></td>
+      <td id="fav-notes">{{notes}}</td>
     </tr>
     {{/each}}
 

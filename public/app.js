@@ -48,11 +48,11 @@ $(document).ready(function () {
       method: "POST",
       url: "/addnote",
       data: {
-        articleID: $(this).attr("id"),
+        artID: $(this).attr("id"),
         newNote: prompt("Enter your note for this article")
       }
     }).then(function (data) {
-        console.log(`jquery ${data}`)
+        
     });
   });
 
