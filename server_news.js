@@ -71,7 +71,7 @@ app.get("/", function (req, res) {
     }
     res.render("index", hdbsObj)
   }).catch(function (err) {
-    res.json(err)
+    console.log(err)
   });
 });
 
@@ -79,7 +79,7 @@ app.get("/markfavorited/:id", function (req, res) {
   // res.json(req.params.id);
   db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
   }).catch(function(err){
-    res.json(err)
+    console.log(err)
   })
 });
 
@@ -91,7 +91,7 @@ app.get("/favorited", function (req, res) {
     }
     res.render("favs", favObj)
   }).catch(function(err){
-    res.json(err)
+    console.log(err)
   });
 });
 
