@@ -84,18 +84,17 @@ axios.get("https://slickdeals.net/").then(function (response) {
 
 
 app.get("/", function (req, res) {
-  res.send("hello world")
-  // db.Article.find({}).then(function (dbData) {
-  //   // console.log(dbData); 
-  //   var hdbsObj = {
-  //     data: dbData
-  //   };
-  //   res.render("index", hdbsObj)
-  // }).catch(function (err) {
-  //   res.json(err);
-  // }).catch(function(err){
-  //   res.json(err)
-  // })
+  db.Article.find({}).then(function (dbData) {
+    // console.log(dbData); 
+    var hdbsObj = {
+      data: dbData
+    };
+    res.render("index", hdbsObj)
+  }).catch(function (err) {
+    res.json(err);
+  }).catch(function(err){
+    res.json(err)
+  })
 });
 
 // app.get("/markfavorited/:id", function (req, res) {
