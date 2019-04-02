@@ -90,11 +90,9 @@ app.get("/", function (req, res) {
       data: dbData
     };
     res.render("index", hdbsObj)
-  }).catch(function (err) {
-    res.json(err);
+  })
   }).catch(function(err){
     res.json(err)
-  })
 });
 
 // app.get("/markfavorited/:id", function (req, res) {
