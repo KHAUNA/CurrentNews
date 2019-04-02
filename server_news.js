@@ -92,8 +92,9 @@ app.get("/", function (req, res) {
     res.render("index", hdbsObj)
   }).catch(function (err) {
     res.json(err);
+  }).catch(function(err){
+    res.json(err)
   })
-  res.json(err)
 });
 
 app.get("/markfavorited/:id", function (req, res) {
@@ -113,8 +114,7 @@ app.get("/favorited", function (req, res) {
     res.render("favs", favObj)
   }).catch(function(err){
     res.json(err);
-  });
-  res.json(err);
+  })
 });
 
 app.get("/addnote", function(req, res){
@@ -129,9 +129,10 @@ app.get("/addnote", function(req, res){
     //   console.log(noteObj)
     //   res.render("favs", noteObj)
     // });
+    }).catch(function(err){
+      res.json(err);
     });
-    res.json(err);
-  })
+  });
 
   // db.Note.create({noteEntry}).then(function(dbData){
   //   // db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
