@@ -53,7 +53,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // });
 
 
-db.Article.deleteMany({ favorited: false})
+// db.Article.deleteMany({ favorited: false})
 // axios.get("https://politics.theonion.com/").then(function (response){
 //   var $ = cheerio.load(response.data);
 //   $("a.js_entry-link").each(function(i, element){
@@ -76,7 +76,7 @@ axios.get("https://slickdeals.net/").then(function (response) {
     var entry = {}
     entry.title = $(element).attr("title");
     entry.link = $(element).attr("href");
-    entry.notes = ""
+    entry.notes = "";
     db.Article.create(entry).then(function (data) {
     });
   });
@@ -88,18 +88,19 @@ app.get("/", function (req, res) {
     // console.log(dbData); 
     var hdbsObj = {
       data: dbData
-    }
+    };
     res.render("index", hdbsObj)
   }).catch(function (err) {
-    res.json(err)
-  });
+    res.json(err);
+  })
+  res.json(err)
 });
 
 app.get("/markfavorited/:id", function (req, res) {
   // res.json(req.params.id);
   db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
   }).catch(function(err){
-    res.json(err)
+    res.json(err);
   })
 });
 
@@ -108,11 +109,12 @@ app.get("/favorited", function (req, res) {
   db.Article.find({ favorited: true }).then(function (dbData) {
     let favObj = {
       data: dbData
-    }
+    };
     res.render("favs", favObj)
   }).catch(function(err){
-    res.json(err)
+    res.json(err);
   });
+  res.json(err);
 });
 
 app.get("/addnote", function(req, res){
@@ -127,7 +129,8 @@ app.get("/addnote", function(req, res){
     //   console.log(noteObj)
     //   res.render("favs", noteObj)
     // });
-  })
+    });
+    res.json(err);
   })
 
   // db.Note.create({noteEntry}).then(function(dbData){
