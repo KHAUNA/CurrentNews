@@ -91,29 +91,26 @@ app.get("/", function (req, res) {
     };
     res.render("index", hdbsObj)
   })
-  }).catch(function(err){
-    res.json(err)
 });
 
-// app.get("/markfavorited/:id", function (req, res) {
-//   // res.json(req.params.id);
-//   db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
-//   }).catch(function(err){
-//     res.json(err);
-//   })
-// });
+app.get("/markfavorited/:id", function (req, res) {
+  // res.json(req.params.id);
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { favorited: true } }).then(function (dbData) {
+  }).catch(function(err){
+    res.json(err);
+  })
+});
 
-// app.get("/favorited", function (req, res) {
+app.get("/favorited", function (req, res) {
 
-//   db.Article.find({ favorited: true }).then(function (dbData) {
-//     let favObj = {
-//       data: dbData
-//     };
-//     res.render("favs", favObj)
-//   }).catch(function(err){
-//     res.json(err);
-//   })
-// });
+  db.Article.find({ favorited: true }).then(function (dbData) {
+    let favObj = {
+      data: dbData
+    };
+    res.render("favs", favObj)
+    res.json(err);
+  })
+});
 
 // app.get("/addnote", function(req, res){
 
@@ -132,20 +129,20 @@ app.get("/", function (req, res) {
 //     });
 //   });
 
-//   // db.Note.create({noteEntry}).then(function(dbData){
-//   //   // db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
-//   // db.Articles.find({ favorited: true}).then(function(dbData){
-//   //   let noteObj = {
-//   //     data: dbData
-//   //   }
-//   //   res.render("favs",noteObj)
-//   // }).catch(function(err){
-//   //   res.json(err);
-//   // });
-//   // }).catch(function(err){
-//   //   res.json(err);
-//   // });
-// // });
+  // db.Note.create({noteEntry}).then(function(dbData){
+  //   // db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+  // db.Articles.find({ favorited: true}).then(function(dbData){
+  //   let noteObj = {
+  //     data: dbData
+  //   }
+  //   res.render("favs",noteObj)
+  // }).catch(function(err){
+  //   res.json(err);
+  // });
+  // }).catch(function(err){
+  //   res.json(err);
+  // });
+// });
 
 app.listen(PORT, function () {
   console.log("Server listening on: http://localhost:" + PORT);
